@@ -91,7 +91,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az deployment group validate --resource-group Akshita --template-file /ArmTemplate/ARMTemplateForFactory.json --parameters /ArmTemplate/ARMTemplateParametersForFactory.json
+            az deployment group validate --resource-group Akshita --template-file ./ArmTemplate/ARMTemplateForFactory.json --parameters ./ArmTemplate/ARMTemplateParametersForFactory.json
       - name: Deploy ARM template
         uses: azure/arm-deploy@v1
         with:
