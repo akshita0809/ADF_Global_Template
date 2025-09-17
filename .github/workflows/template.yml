@@ -91,6 +91,6 @@ jobs:
           scope: resourcegroup
           subscriptionId: ${{ secrets.SUBS_ID }}
           resourceGroupName: ${{ secrets.RG }}
-          template: ${{ github.workspace }}/ArmTemplate/ARMTemplateForFactory.json
+          template: ./ArmTemplate/ARMTemplateForFactory.json
           parameters: ./parameters.updated.json
           deploymentMode: Incremental
