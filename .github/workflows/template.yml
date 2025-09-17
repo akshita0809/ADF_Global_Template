@@ -21,7 +21,10 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          subscription-id: ${{ secrets.SUBS_ID }}
+          enable-AzPSSession: true
   
       - name: Azure CLI script
         uses: azure/cli@v2
@@ -37,18 +40,18 @@ jobs:
         run: npm install
 
       - name: Validate
-        run: npm run build validate $(pwd) /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCE_GROUP }}/providers/Microsoft.DataFactory/factories/${{ secrets.DATA_FACTORY_NAME }}
+        run: npm run build validate $(pwd) /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }}
         
       - name: Generate ARM Template
-        run: npm run build export $(pwd) /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.AZURE_RESOURCE_GROUP }}/providers/Microsoft.DataFactory/factories/${{ secrets.DATA_FACTORY_NAME }} "ArmTemplate"
+        run: npm run build export $(pwd) /subscriptions/${{ secrets.SUBSCRIPTION_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }} "ArmTemplate"
       
       - name: List files in current directory
         run: ls -R ArmTemplate/
         
-      - name: Run PowerShell script to update parameters
-        shell: pwsh
-        run: |
-          ./update.ps1 -parameterFile ${{ inputs.parametername }}
+      # - name: Run PowerShell script to update parameters
+      #   shell: pwsh
+      #   run: |
+      #     ./update.ps1 -parameterFile ${{ inputs.parametername }}
           
       - name: List files in current directory
         run: ls
@@ -56,15 +59,12 @@ jobs:
       - name: List the updated parameters
         run: cat parameters.updated.json
 
-      - name: Display contents of parameters.updated.json
-        run: cat parameters.updated.json
-
-      - name: Deploy ARM template
-        uses: azure/arm-deploy@v1
-        with:
-          scope: resourcegroup
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          template: ${{ github.workspace }}/ArmTemplate/ARMTemplateForFactory.json
-          parameters: ./parameters.updated.json
-          deploymentMode: Incremental
+      # - name: Deploy ARM template
+      #   uses: azure/arm-deploy@v1
+      #   with:
+      #     scope: resourcegroup
+      #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      #     resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      #     template: ${{ github.workspace }}/ArmTemplate/ARMTemplateForFactory.json
+      #     parameters: ./parameters.updated.json
+      #     deploymentMode: Incremental
