@@ -81,9 +81,10 @@ jobs:
           ./template-repo/update.ps1 -parameterFile ${{ inputs.parametername }}
           
       
-        
       - name: List the updated parameters
-        run: cat parameters.updated.json
+        run: cat ./ArmTemplate/ARMTemplateForFactory.json
+      - name: List the updated parameters
+        run: cat ./ArmTemplate/ARMTemplateParametersForFactory.json
 
       - name: Deploy ARM template
         uses: azure/arm-deploy@v1
