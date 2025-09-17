@@ -89,8 +89,8 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           scope: resourcegroup
-          subscriptionId: ${{ secrets.SUBS_ID }}
-          resourceGroupName: ${{ secrets.RG }}
+          subscriptionId: 41ae3075-2ae0-4d8a-8233-c602b5f8ef28
+          resourceGroupName: Akshita
           template: ./ArmTemplate/ARMTemplateForFactory.json
           parameters: ./parameters.updated.json
           deploymentMode: Incremental
