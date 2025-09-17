@@ -9,21 +9,21 @@ on:
           parametername:
             required: true
             type: string
-          CLIENT_ID:
-            required: true
-            type: string
-          TENANT_ID:
-            required: true
-            type: string
-          SUBS_ID:
-            required: true
-            type: string
-          RG:
-            required: true
-            type: string
-          ADF_Name:
-            required: true
-            type: string
+          # CLIENT_ID:
+          #   required: true
+          #   type: string
+          # TENANT_ID:
+          #   required: true
+          #   type: string
+          # SUBS_ID:
+          #   required: true
+          #   type: string
+          # RG:
+          #   required: true
+          #   type: string
+          # ADF_Name:
+          #   required: true
+          #   type: string
           environment:
             required: true
             type: string
@@ -42,9 +42,9 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ inputs.CLIENT_ID }}
-          tenant-id: ${{ inputs.TENANT_ID }}
-          subscription-id: ${{ inputs.SUBS_ID }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          subscription-id: ${{ secrets.SUBS_ID }}
           enable-AzPSSession: true
   
       - name: Azure CLI script
@@ -61,10 +61,10 @@ jobs:
         run: npm install
 
       - name: Validate
-        run: npm run build validate $(pwd) /subscriptions/${{ inputs.SUBS_ID }}/resourceGroups/${{ inputs.RG }}/providers/Microsoft.DataFactory/factories/${{ inputs.ADF_Name }}
+        run: npm run build validate $(pwd) /subscriptions/${{ secrets.SUBS_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }}
         
       - name: Generate ARM Template
-        run: npm run build export $(pwd) /subscriptions/${{ inputs.SUBS_ID }}/resourceGroups/${{ inputs.RG }}/providers/Microsoft.DataFactory/factories/${{ inputs.ADF_Name }} "ArmTemplate"
+        run: npm run build export $(pwd) /subscriptions/${{ secrets.SUBS_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }} "ArmTemplate"
       
       - name: List files in current directory
         run: ls -R ArmTemplate/
