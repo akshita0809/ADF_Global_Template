@@ -38,7 +38,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
+      - name: Checkout template repo
+        uses: actions/checkout@v3
+        with:
+          repository: akshita0809/ADF_Global_Template       
+          ref: main                       
+          path: template-repo  
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -73,7 +78,7 @@ jobs:
       - name: Run PowerShell script to update parameters
         shell: pwsh
         run: |
-          ./update.ps1 -parameterFile ${{ inputs.parametername }}
+          ./template-repo/update.ps1 -parameterFile ${{ inputs.parametername }}
           
       
         
