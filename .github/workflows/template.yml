@@ -92,5 +92,5 @@ jobs:
           subscriptionId: 41ae3075-2ae0-4d8a-8233-c602b5f8ef28
           resourceGroupName: Akshita
           template: ./ArmTemplate/ARMTemplateForFactory.json
-          parameters: ./parameters.updated.json
+          parameters: ./ArmTemplate/ARMTemplateParametersForFactory.json
           deploymentMode: Incremental
