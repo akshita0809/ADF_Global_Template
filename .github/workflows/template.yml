@@ -68,14 +68,14 @@ jobs:
       
       - name: List files in current directory
         run: ls -R ArmTemplate/
-        
+      - name: List files in current directory
+        run: ls
       - name: Run PowerShell script to update parameters
         shell: pwsh
         run: |
           ./update.ps1 -parameterFile ${{ inputs.parametername }}
           
-      - name: List files in current directory
-        run: ls
+      
         
       - name: List the updated parameters
         run: cat parameters.updated.json
