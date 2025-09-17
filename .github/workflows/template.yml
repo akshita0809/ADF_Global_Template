@@ -69,23 +69,23 @@ jobs:
       - name: List files in current directory
         run: ls -R ArmTemplate/
         
-      # - name: Run PowerShell script to update parameters
-      #   shell: pwsh
-      #   run: |
-      #     ./update.ps1 -parameterFile ${{ inputs.parametername }}
+      - name: Run PowerShell script to update parameters
+        shell: pwsh
+        run: |
+          ./update.ps1 -parameterFile ${{ inputs.parametername }}
           
       - name: List files in current directory
         run: ls
         
       - name: List the updated parameters
-        run: cat ArmTemplate/ARMTemplateParametersForFactory.json
+        run: cat parameters.updated.json
 
-      # - name: Deploy ARM template
-      #   uses: azure/arm-deploy@v1
-      #   with:
-      #     scope: resourcegroup
-      #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      #     resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
-      #     template: ${{ github.workspace }}/ArmTemplate/ARMTemplateForFactory.json
-      #     parameters: ./parameters.updated.json
-      #     deploymentMode: Incremental
+      - name: Deploy ARM template
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ secrets.SUBS_ID }}
+          resourceGroupName: ${{ secrets.RG }}
+          template: ${{ github.workspace }}/ArmTemplate/ARMTemplateForFactory.json
+          parameters: ./parameters.updated.json
+          deploymentMode: Incremental
