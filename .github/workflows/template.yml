@@ -69,7 +69,7 @@ jobs:
       - name: List files in current directory
         run: ls -R ArmTemplate/
       - name: List files in current directory
-        run: ls
+        run: ls downloads/
       - name: Run PowerShell script to update parameters
         shell: pwsh
         run: |
