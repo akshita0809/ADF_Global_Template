@@ -66,10 +66,10 @@ jobs:
         run: npm install
 
       - name: Validate
-        run: npm run build validate $(pwd) /subscriptions/${{ secrets.SUBS_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }}
+        run: npm run build validate $(pwd) /subscriptions/${{ secrets.SUBS_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_NAME }}
         
       - name: Generate ARM Template
-        run: npm run build export $(pwd) /subscriptions/${{ secrets.SUBS_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_Name }} "ArmTemplate"
+        run: npm run build export $(pwd) /subscriptions/${{ secrets.SUBS_ID }}/resourceGroups/${{ secrets.RG }}/providers/Microsoft.DataFactory/factories/${{ secrets.ADF_NAME }} "ArmTemplate"
       
       - name: List files in current directory
         run: ls -R ArmTemplate/
