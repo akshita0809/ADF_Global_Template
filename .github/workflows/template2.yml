@@ -9,10 +9,14 @@ on:
           parametername:
             required: true
             type: string
+          environment:
+            required: true
+            type: string
         
 jobs:
   build:
     name: Build ADF Artifacts
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
